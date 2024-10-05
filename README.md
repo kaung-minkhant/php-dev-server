@@ -3,6 +3,8 @@
 ## Web Server Root folder
 Nginx web server is used. You can customize the root folder of the web server by changing **root** property in __nginx.conf__ file.
 
+The web server will be available at `127.0.0.1`
+
 ## Docker Compose
 Change the **USER** arg in docker-compose.yml to the output of `whoami` on the host machine.
 Modify the volumes of nginx and php interpreter to match the project structure.
@@ -35,3 +37,6 @@ In order to generate **composer.json** file, run `generate-composer.sh <interpre
 ### composer.json dependency install
 In order to install dependencies, run `composer-install.sh <interpreter-container-name>`. This will install all the dependencies and create **composer.lock** and **vendor** folder in __app__ folder.
 
+## PHPMyAdmin Dashboard
+
+The dashboard will be availabe at `127.0.0.1/phpmyadmin`.
