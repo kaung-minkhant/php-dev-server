@@ -1,5 +1,5 @@
 <?php
-$pdo = new PDO('mysql:dbname=tutorial;host=mysql-php', 'tutorial', 'secret', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+$pdo = new PDO('mysql:dbname=test;host=mysql-php', 'test', 'test', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
 $query = $pdo->query('SHOW VARIABLES like "version"');
 
