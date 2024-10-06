@@ -1,2 +1,7 @@
 **/book
 **/vendor
+**/App
+**/_actions
+**/css
+**/composer.json
+**/composer.lock

@@ -1,5 +1,8 @@
 # PHP dev environment
 
+## Important
+Modify **.gitignore** file to suit the project.
+
 ## Web Server Root folder
 Nginx web server is used. You can customize the root folder of the web server by changing **root** property in __nginx.conf__ file.
 
