@@ -46,3 +46,8 @@ User **composer.sh** file to run composer related commands.
 The dashboard will be availabe at `127.0.0.1/phpmyadmin`.
 The URL can be modified if the domain or port is changed. You can modify the url in **.env** file.
 This url should be exactly as typed into the search bar.
+
+## Artisan
+
+Artisan is used with default PHP interpreter with necessary extension only.
+User **artisan.sh** to execute any command related to artisan.

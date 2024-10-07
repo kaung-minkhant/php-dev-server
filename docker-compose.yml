@@ -62,6 +62,21 @@ services:
     volumes:
       - ./src:/var/www/html/
     working_dir: /var/www/html/
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: Artisan.Dockerfile
+    container_name: ${ARTISAN_CONTAINER_NAME}
+    volumes:
+      - ./src:/var/www/html/
+    working_dir: /var/www/html/
+    depends_on:
+      - mysql-php
+    entrypoint: ['ls']
+    networks:
+      default:
+        aliases:
+          - ${ARTISAN_CONTAINER_NAME}
 
 volumes:
   mysql-php-data: {}
