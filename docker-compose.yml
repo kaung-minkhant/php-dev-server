@@ -70,9 +70,9 @@ services:
     volumes:
       - ./src:/var/www/html/
     working_dir: /var/www/html/
+    entrypoint: [ "/entry/artisan-entrypoint.sh" ]
     depends_on:
       - mysql-php
-    entrypoint: ['ls']
     networks:
       default:
         aliases:
