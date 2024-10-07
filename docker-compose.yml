@@ -2,51 +2,66 @@ version: '3'
 services:
   php-web-server:
     image: nginx:latest
-    container_name: php-web-server
+    container_name: ${WEB_SERVER_CONTAINER_NAME}
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
-      - ./app:/app
+      - ./.config/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./src:/var/www/html/
     depends_on:
       - php
       - mysql-php
       - phpMyAdmin
   php:
-    # image: php:fpm
     build:
-      context: .
+      context: ./dockerfiles
       dockerfile: PHP.Dockerfile
-      args:
-        USER: kaungminkhant
-    container_name: php-interpreter
+    container_name: ${PHP_INTERPRETER_CONTAINER_NAME}
     expose:
       - 9000
     volumes:
-      - ./app:/app
+      - ./src:/var/www/html/
+    networks:
+      default:
+        aliases:
+          - ${PHP_INTERPRETER_CONTAINER_NAME}
   mysql-php:
     image: mariadb:latest
-    container_name: mysql-php
+    container_name: ${MYSQL_CONTAINER_NAME}
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - mysql-php-data:/var/lib/mysql
     expose:
       - 3306
+    networks:
+      default:
+        aliases:
+          - ${MYSQL_CONTAINER_NAME}
   phpMyAdmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpMyAdmin
+    container_name: ${PHPMYADMIN_CONTAINER_NAME}
     environment:
-      PMA_HOST: mysql-php
+      PMA_HOST: ${MYSQL_CONTAINER_NAME}
       PMA_PORT: 3306
-      PMA_ABSOLUTE_URI: http://127.0.0.1/phpmyadmin/
+      PMA_ABSOLUTE_URI: ${PHPMYADMIN_URI}
     expose:
       - 80
     depends_on:
       - mysql-php
+    networks:
+      default:
+        aliases:
+          - ${PHPMYADMIN_CONTAINER_NAME}
+  composer:
+    image: composer:latest
+    container_name: ${COMPOSER_CONTAINER_NAME}
+    volumes:
+      - ./src:/var/www/html/
+    working_dir: /var/www/html/
 
 volumes:
   mysql-php-data: {}
